@@ -10,10 +10,32 @@
 window.addEventListener('DOMContentLoaded', event => {
 
     // Funcionalidade para o formulário
-    const contactForm = document.getElementById("contactForm");
-    contactForm.addEventListener("submit", function (event) {
+        const contactForm = document.getElementById("contactForm");
+        contactForm.addEventListener("submit", function (event) {
         event.preventDefault(); // Impede o comportamento padrão do formulário
+        const responseMessage = document.getElementById("responseMessage");
+        const inputs = contactForm.querySelectorAll("input, textarea"); // Seleciona todos os campos do formulário
 
+        // Função para verificar se todos os campos são válidos
+        function validateForm() {
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!input.value.trim() || !input.checkValidity()) {
+                    isValid = false; // Se algum campo estiver vazio ou inválido
+                }
+            });
+
+            submitButton.disabled = !isValid; // Desabilita o botão se algum campo for inválido
+        }
+
+        // Adiciona o evento "input" em todos os campos para verificar enquanto o usuário digita
+        inputs.forEach(input => {
+            input.addEventListener("input", validateForm);
+        });
+
+        // Valida inicialmente ao carregar a página
+        validateForm();
         // Captura os dados do formulário
         const name = document.getElementById("name").value;
         const email = document.getElementById("email").value;
@@ -47,10 +69,13 @@ window.addEventListener('DOMContentLoaded', event => {
             contactForm.reset();
             const submitButton = contactForm.querySelector("button[type='submit']");
             submitButton.disabled = true;
-
-            alert('Your mail is sent!');
+            responseMessage.textContent = 'Email enviado com sucesso!';
+            responseMessage.className = 'response-message success';
+            //alert('Your mail is sent!');
         }).fail(function(error) {
-            alert('Oops... ' + JSON.stringify(error));
+            responseMessage.textContent = 'Erro ao enviar email. Por favor, tente novamente.';
+            responseMessage.className = 'response-message error';
+            //alert('Oops... ' + JSON.stringify(error));
         });
 
 
