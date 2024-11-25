@@ -14,53 +14,40 @@ window.addEventListener('DOMContentLoaded', event => {
         contactForm.addEventListener("submit", function (event) {
         event.preventDefault(); // Impede o comportamento padrão do formulário
         const responseMessage = document.getElementById("responseMessage");
-        const inputs = contactForm.querySelectorAll("input, textarea"); // Seleciona todos os campos do formulário
-
-        // Função para verificar se todos os campos são válidos
-        function validateForm() {
-            let isValid = true;
-
-            inputs.forEach(input => {
-                if (!input.value.trim() || !input.checkValidity()) {
-                    isValid = false; // Se algum campo estiver vazio ou inválido
-                }
-            });
-
-            submitButton.disabled = !isValid; // Desabilita o botão se algum campo for inválido
-        }
-
-        // Adiciona o evento "input" em todos os campos para verificar enquanto o usuário digita
-        inputs.forEach(input => {
-            input.addEventListener("input", validateForm);
-        });
-
-        // Valida inicialmente ao carregar a página
-        validateForm();
+        
         // Captura os dados do formulário
         const name = document.getElementById("name").value;
         const email = document.getElementById("email").value;
         const message = document.getElementById("message").value;
+        template_params= {
+            from_name: name,
+            email_id: email,
+            message: message,
+        }
+        for (let key in template_params){
+            if(!template_params[key]){
+                responseMessage.textContent = 'Preencha todos os parâmetros por favor';
+                responseMessage.className = 'response-message error';
+                return
+            }
+        }
 
         console.log("Dados capturados:");
         console.log("Nome:", name);
         console.log("Email:", email);
         console.log("Mensagem:", message);
         console.log("eu estou tentando enviar")
-
-        alert("Obrigado, " + name + "! Sua mensagem foi enviada com sucesso.");
+        
 
         var data = {
             service_id: 'service_56k39mm',
             template_id:'template_6evu12d',
             user_id:  'LR-SDg1chiAIR8TkC',
-            template_params: {
-                from_name: name,
-                email_id: email,
-                message: message,
-            }
+            template_params: template_params
         };
+
          
-        $.ajax('https://api.emailjs.com/api/v1.0/email/send', {
+        $.ajax('https://api.emailjs.com/api/v1.0/email/sen', {
             type: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json'

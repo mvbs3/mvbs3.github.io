@@ -90,28 +90,6 @@
     scroll-behavior: smooth;
   }
 }
-.response-message {
-  display: none; /* Inicialmente escondido */
-  font-size: 1.2rem;
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.response-message.success {
-  display: block;
-  color: #155724;
-  background-color: #d4edda;
-  border: 1px solid #c3e6cb;
-}
-
-.response-message.error {
-  display: block;
-  color: #721c24;
-  background-color: #f8d7da;
-  border: 1px solid #f5c6cb;
-}
 
 body {
   margin: 0;
