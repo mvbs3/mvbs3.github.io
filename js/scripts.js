@@ -9,6 +9,53 @@
 
 window.addEventListener('DOMContentLoaded', event => {
 
+    // Funcionalidade para o formulário
+    const contactForm = document.getElementById("contactForm");
+    contactForm.addEventListener("submit", function (event) {
+        event.preventDefault(); // Impede o comportamento padrão do formulário
+
+        // Captura os dados do formulário
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const message = document.getElementById("message").value;
+
+        console.log("Dados capturados:");
+        console.log("Nome:", name);
+        console.log("Email:", email);
+        console.log("Mensagem:", message);
+        console.log("eu estou tentando enviar")
+
+        alert("Obrigado, " + name + "! Sua mensagem foi enviada com sucesso.");
+
+        var data = {
+            service_id: 'service_56k39mm',
+            template_id:'template_6evu12d',
+            user_id:  'LR-SDg1chiAIR8TkC',
+            template_params: {
+                from_name: name,
+                email_id: email,
+                message: message,
+            }
+        };
+         
+        $.ajax('https://api.emailjs.com/api/v1.0/email/send', {
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json'
+        }).done(function() {
+
+            contactForm.reset();
+            const submitButton = contactForm.querySelector("button[type='submit']");
+            submitButton.disabled = true;
+
+            alert('Your mail is sent!');
+        }).fail(function(error) {
+            alert('Oops... ' + JSON.stringify(error));
+        });
+
+
+    });
+
     // Navbar shrink function
     var navbarShrink = function () {
         const navbarCollapsible = document.body.querySelector('#mainNav');
@@ -52,3 +99,4 @@ window.addEventListener('DOMContentLoaded', event => {
     });
 
 });
+
