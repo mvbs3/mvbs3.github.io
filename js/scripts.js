@@ -47,7 +47,7 @@ window.addEventListener('DOMContentLoaded', event => {
         };
 
          
-        $.ajax('https://api.emailjs.com/api/v1.0/email/sen', {
+        $.ajax('https://api.emailjs.com/api/v1.0/email/send', {
             type: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json'
