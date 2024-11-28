@@ -11027,6 +11027,10 @@ html {
   font-size: 2.25rem;
   line-height: 2rem;
 }
+.portfolio-modal .portfolio-modal-tecnologies {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
 @media (min-width: 992px) {
   .portfolio-modal .portfolio-modal-title {
     font-size: 3rem;
